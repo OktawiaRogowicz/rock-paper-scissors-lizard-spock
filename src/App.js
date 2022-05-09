@@ -121,6 +121,47 @@ const Icon = styled.button`
   border-radius: 50%;
 `
 
+const Game = styled.div`
+  text-transform: uppercase;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  p {
+    font-size: 1rem;
+  }
+
+  h1 {
+    font-size: 3rem;
+  }
+
+  button {
+    padding: 10px 20px 10px 20px;
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    text-transform: uppercase;
+    color: black;
+  }
+
+  div {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    div {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+`
+
 
 function App() {
 
@@ -163,22 +204,29 @@ function App() {
             </Header>
             <Rules>Rules</Rules>
 
-            <Pentagon>
-                <Icon onClick={ () => onPickIcon(choiceEnum.scissors) } id="scissors"><img src={icon_scissors} alt={"Scissors"}/></Icon>
-                <Icon onClick={ () => onPickIcon(choiceEnum.spock) } id="spock"><img src={icon_spock} alt={"Spock"}/></Icon>
-                <Icon onClick={ () => onPickIcon(choiceEnum.paper) } id="paper"><img src={icon_paper} alt={"Paper"}/></Icon>
-                <Icon onClick={ () => onPickIcon(choiceEnum.lizard) } id="lizard"><img src={icon_lizard} alt={"Lizard"}/></Icon>
-                <Icon onClick={ () => onPickIcon(choiceEnum.rock) } id="rock"><img src={icon_rock} alt={"Rock"}/></Icon>
-            </Pentagon>
+            <Game>
+              {/* <Pentagon>
+                  <Icon onClick={ () => onPickIcon(choiceEnum.scissors) } id="scissors"><img src={icon_scissors} alt={"Scissors"}/></Icon>
+                  <Icon onClick={ () => onPickIcon(choiceEnum.spock) } id="spock"><img src={icon_spock} alt={"Spock"}/></Icon>
+                  <Icon onClick={ () => onPickIcon(choiceEnum.paper) } id="paper"><img src={icon_paper} alt={"Paper"}/></Icon>
+                  <Icon onClick={ () => onPickIcon(choiceEnum.lizard) } id="lizard"><img src={icon_lizard} alt={"Lizard"}/></Icon>
+                  <Icon onClick={ () => onPickIcon(choiceEnum.rock) } id="rock"><img src={icon_rock} alt={"Rock"}/></Icon>
+              </Pentagon> */}
 
+              <div>
+                <div>
+                  <p>You Picked</p>
+                </div>
+                <div>
+                  <p>The House Picked</p>
+                </div>
+              </div>
 
-            You Picked
-            The House Picked
+              <h1>You Win</h1>
+              <h1>You Lose</h1>
 
-            You Win
-            You Lose
-
-            Play Again
+              <button>Play Again</button>
+            </Game>
         </Container>
     );
 }
