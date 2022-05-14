@@ -42,11 +42,11 @@ const Container = styled.button`
 
 const Icon = ({onPickIcon, choice}) => {
     var iconList = [icon_spock, icon_lizard, icon_rock, icon_paper, icon_scissors];
-    var borderColorList = ["linear-gradient(hsl(189, 59%, 53%), hsl(189, 58%, 57%))",
-    "linear-gradient(hsl(261, 73%, 60%), hsl(261, 72%, 63%))",
-    "linear-gradient(hsl(349, 71%, 52%), hsl(349, 70%, 56%))",
-    "linear-gradient(hsl(230, 89%, 62%), hsl(230, 89%, 65%))",
-    "linear-gradient(hsl(39, 89%, 49%), hsl(40, 84%, 53%))"]
+    var borderColorList = ["linear-gradient(to top, hsl(189, 59%, 53%), hsl(189, 58%, 57%))",
+    "linear-gradient(to top, hsl(261, 73%, 60%), hsl(261, 72%, 63%))",
+    "linear-gradient(to top, hsl(349, 71%, 52%), hsl(349, 70%, 56%))",
+    "linear-gradient(to top, hsl(230, 89%, 62%), hsl(230, 89%, 65%))",
+    "linear-gradient(to top, hsl(39, 89%, 49%), hsl(40, 84%, 53%))"]
 
     return (
         <Container
