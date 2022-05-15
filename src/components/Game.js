@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import {React, useState, useEffect} from "react";
-import Icon from "./Icon";
+import Icon, { PulseOpacityAnimation, PulseScaleAnimation } from "./Icon";
 
 import pentagramBackground from '../rock-paper-scissors-master/images/bg-pentagon.svg';
+import { css, keyframes } from "styled-components";
 
 const Pentagon = styled.div`
   position: relative;
@@ -21,8 +22,9 @@ const Pentagon = styled.div`
   &>*:nth-child(1) {
     position: absolute;
     top: -2rem;
-    left: 50%;
-    transform: translate(-50%, 0);
+    left: 0;
+    right: 0;
+    margin: auto;
   }
 
   &>*:nth-child(2) {
@@ -65,6 +67,21 @@ const GameContainer = styled.div`
 
 `
 
+const ResultTextAnimation = keyframes`
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  80%{
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100%{
+    transform: scale(1.0);
+    opacity: 1;
+  }
+`
+
 const StageTwoContainer = styled.div`
   height: 100%;
   width: 100%;
@@ -80,6 +97,7 @@ const StageTwoContainer = styled.div`
 
   h1 {
     font-size: 3rem;
+    animation: ${ResultTextAnimation} 1250ms calc(1250ms + 1250ms) both;
   }
 
   #play_again {
@@ -89,19 +107,86 @@ const StageTwoContainer = styled.div`
     border-radius: 5px;
     text-transform: uppercase;
     color: black;
-  }
+    font-family: 'Barlow Semi Condensed', sans-serif;
 
-  div {
-    display: flex;
-    width: 100%;
+    animation: ${ResultTextAnimation} 1250ms calc(1250ms + 1250ms + 1250ms) both;
 
-    div {
-      flex: 1;
-      flex-direction: column;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    &:hover, &:active {
+      cursor: pointer;
     }
+  }
+`
+
+const ChoiceContainer = styled.div`
+  display: flex;
+  width: 100%;
+`
+
+const Choice = styled.div`
+  flex: 1;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &>*:nth-child(1){
+    //transform: scale(1.35);
+    /* margin-bottom: 1rem; */
+    pointer-events: none;
+  }
+`
+
+const UsersChoice = styled(Choice)`
+  &>*:nth-child(1){
+    animation: ${PulseScaleAnimation} 1250ms;
+  }
+  &>*:nth-child(1)::after, &>*:nth-child(1)::before {
+    ${props => props.hasUserWon === true ?
+      css`
+        content: '';
+        position: absolute;
+        height: 135%;
+        width: 135%;
+        background-color: white;
+        border-radius: 50%;
+        opacity: 0;
+        z-index: -1;
+        animation: ${PulseScaleAnimation} 1250ms calc(1250ms + 1250ms + 1250ms) infinite, ${PulseOpacityAnimation} 1250ms calc(1250ms + 1250ms + 1250ms) infinite;
+      `
+      : ''};
+  }
+`
+
+const ComputersChoiceAnimation = keyframes`
+  0% {
+    filter: brightness(0);
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+`
+
+const ComputersChoice = styled(Choice)`
+  &>*:nth-child(1){
+    animation: ${ComputersChoiceAnimation} 1250ms 1250ms both;
+  }
+  &>*:nth-child(1)::after, &>*:nth-child(1)::before {
+    ${props => props.hasUserWon === false ?
+      css`
+        content: '';
+        position: absolute;
+        height: 135%;
+        width: 135%;
+        background-color: white;
+        border-radius: 50%;
+        opacity: 0;
+        z-index: -1;
+        animation: ${PulseScaleAnimation} 1250ms calc(1250ms + 1250ms + 1250ms) infinite, ${PulseOpacityAnimation} 1250ms calc(1250ms + 1250ms + 1250ms) infinite;
+      `
+      : ''};
   }
 `
 
@@ -139,8 +224,10 @@ const Game = ({score, setScore}) => {
         let result = compareChoices(choiceEnum.scissors, choice, cc);
         if(result === 1) {
           setHasUserWon(true);
+          
         } else if (result === -1) {
           setHasUserWon(false);
+
         } 
         setScore(score + result);
     }
@@ -162,16 +249,16 @@ const Game = ({score, setScore}) => {
             </Pentagon>
           ) : (
             <StageTwoContainer>
-              <div>
-                  <div>
+              <ChoiceContainer>
+                  <UsersChoice hasUserWon={hasUserWon}>
                       <Icon choice={usersChoice}/>
                       <p>You Picked</p>
-                  </div>
-                  <div>
+                  </UsersChoice>
+                  <ComputersChoice hasUserWon={hasUserWon}>
                       <Icon choice={computersChoice}/>
                       <p>The House Picked</p>
-                  </div>
-              </div>
+                  </ComputersChoice>
+              </ChoiceContainer>
 
               { hasUserWon ? (<h1>You Win</h1>) : (<h1>You Lose</h1>) }
 

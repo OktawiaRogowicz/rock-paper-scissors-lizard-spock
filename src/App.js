@@ -27,10 +27,11 @@ const Container = styled.div`
   overflow-x: hidden;
 
   font-family: 'Barlow Semi Condensed', sans-serif;
+  z-index: 0;
 `
 
 const Header = styled.div`
-  width: 60%;
+  width: 100%;
   height: 6.5rem;
   display: flex;
   align-items: center;
@@ -47,6 +48,11 @@ const Header = styled.div`
   margin-bottom: 1.5rem;
 
   background: transparent;
+
+  @media (min-width: 768px) {
+    width: 60%;
+    max-width: 25rem;
+  }
 
   img {
     height: 100%;

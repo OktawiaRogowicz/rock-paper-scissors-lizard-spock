@@ -5,10 +5,36 @@ import icon_paper from "../rock-paper-scissors-master/images/icon-paper.svg";
 import icon_scissors from "../rock-paper-scissors-master/images/icon-scissors.svg";
 import icon_spock from "../rock-paper-scissors-master/images/icon-spock.svg";
 import icon_lizard from "../rock-paper-scissors-master/images/icon-lizard.svg";
+import { keyframes } from "styled-components";
 
+export const PulseOpacityAnimation = keyframes`
+    0% {
+        opacity: 0.15;
+    }
+    70% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+`
+
+export const PulseScaleAnimation = keyframes`
+    0% {
+        transform: scale(1.0);
+    }
+    70% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1.0);
+    }
+`
 
 const Container = styled.button`
-  //position: absolute;
+  position: relative;
+  max-height: 7rem;
+  max-width: 7rem;
   height: 7rem;
   width: 7rem;
 
@@ -16,11 +42,22 @@ const Container = styled.button`
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  box-shadow: inset 0 -0.3em rgba(0, 0, 0, 0.2), 0 5px 5px rgb(0, 0, 0, 0.2);;
+  box-shadow: inset 0 -0.3em rgba(0, 0, 0, 0.2), 0 5px 5px rgb(0, 0, 0, 0.2);
 
   border: none;
+  
+  &:hover, &:active {
+      cursor: pointer;
+      animation: ${PulseScaleAnimation} 1250ms infinite;
+
+      &::after, &::before {
+        animation: ${PulseOpacityAnimation} 1250ms infinite, ${PulseScaleAnimation} 1250ms infinite;
+      }
+      
+  }
 
   div {
+    position: relative;
     max-height: 5.1rem;
     max-width: 5.1rem;
     height: 5.1rem;
@@ -34,6 +71,7 @@ const Container = styled.button`
     box-shadow: inset 0 0.3em rgba(0, 0, 0, 0.2);
 
     img {
+        position: relative;
         width: 55%;
         height: 55%;
     }
