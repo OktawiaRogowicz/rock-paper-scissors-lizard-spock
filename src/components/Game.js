@@ -42,7 +42,7 @@ const Pentagon = styled.div`
   &>*:nth-child(4) {
     position: absolute;
     bottom: -2rem;
-    left: rem;
+    left: 1rem;
   }
 
   &>*:nth-child(5) {
@@ -64,7 +64,6 @@ const GameContainer = styled.div`
 
   height: 60%;
   width: 100%;
-
 `
 
 const ResultTextAnimation = keyframes`
@@ -101,18 +100,20 @@ const StageTwoContainer = styled.div`
   }
 
   #play_again {
-    padding: 10px 20px 10px 20px;
+    padding: 1rem 3rem 1rem 3rem;
     background-color: white;
     border: none;
     border-radius: 5px;
     text-transform: uppercase;
     color: black;
     font-family: 'Barlow Semi Condensed', sans-serif;
+    font-size: 1rem;
 
     animation: ${ResultTextAnimation} 1250ms calc(1250ms + 1250ms + 1250ms) both;
 
     &:hover, &:active {
       cursor: pointer;
+      //animation: ${PulseScaleAnimation} 1250ms infinite both;
     }
   }
 `
@@ -130,8 +131,6 @@ const Choice = styled.div`
   align-items: center;
 
   &>*:nth-child(1){
-    //transform: scale(1.35);
-    /* margin-bottom: 1rem; */
     pointer-events: none;
   }
 `

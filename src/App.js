@@ -32,7 +32,7 @@ const Container = styled.div`
 
 const Header = styled.div`
   width: 100%;
-  height: 6.5rem;
+  height: 8rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -44,14 +44,13 @@ const Header = styled.div`
   border: 3px var(--header_outline) solid;
   border-radius: 10px;
   box-sizing: border-box;
-  padding: 10px;
+  padding: 1rem 2rem 1rem 2rem;
   margin-bottom: 1.5rem;
 
   background: transparent;
 
   @media (min-width: 768px) {
-    width: 60%;
-    max-width: 25rem;
+    width: 40%;
   }
 
   img {
@@ -70,7 +69,7 @@ const Score = styled.div`
 
   background-color: white;
   text-align: center;
-  font-size: 0.66rem;
+  font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.1rem;
   font-weight: 700;
@@ -82,7 +81,7 @@ const Score = styled.div`
 
   span {
     display: block;
-    font-size: 2.5rem;
+    font-size: 3rem;
     color: var(--dark_text);
   }
 `
@@ -104,6 +103,12 @@ const Rules = styled.button`
   
   &:hover, &:active {
     cursor: pointer;
+  }
+
+  @media (min-width: 768px) {
+    left: auto;
+    right: 3rem;
+    transform: none;
   }
 `
 
