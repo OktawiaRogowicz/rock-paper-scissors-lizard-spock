@@ -71,13 +71,13 @@ const ResultTextAnimation = keyframes`
     transform: scale(0.5);
     opacity: 0;
   }
-  80%{
+  80% {
     transform: scale(1.1);
-    opacity: 1;
+    opacity: 1.0;
   }
-  100%{
+  100% {
     transform: scale(1.0);
-    opacity: 1;
+    opacity: 1.0;
   }
 `
 
@@ -108,12 +108,11 @@ const StageTwoContainer = styled.div`
     color: black;
     font-family: 'Barlow Semi Condensed', sans-serif;
     font-size: 1rem;
+    opacity: 1;
+    animation: ${ResultTextAnimation} 1250ms calc(1250ms + 1250ms + 1250ms) both, ${PulseScaleAnimation} 1250ms calc(1250ms + 1250ms + 1250ms + 1250ms) infinite;
 
-    animation: ${ResultTextAnimation} 1250ms calc(1250ms + 1250ms + 1250ms) both;
-
-    &:hover, &:active {
+    &:hover, &:active, &:focus {
       cursor: pointer;
-      //animation: ${PulseScaleAnimation} 1250ms infinite both;
     }
   }
 `
@@ -207,7 +206,8 @@ function compareChoices(modulo, usersChoice, computersChoice) {
 const Game = ({score, setScore}) => {
 
     const [hasUserChosen, setHasUserChosen] = useState(false);
-    const [hasUserWon, setHasUserWon] = useState(false);
+    const [hasUserWon, setHasUserWon] = useState(0);
+    // 1 - user won, 0 - tie, -1 - computer;
 
     var choiceEnum = {"spock": 0, "lizard": 1, "rock": 2, "paper": 3, "scissors": 4, "none": 5};
 
@@ -221,13 +221,7 @@ const Game = ({score, setScore}) => {
         setComputersChoice(cc);
 
         let result = compareChoices(choiceEnum.scissors, choice, cc);
-        if(result === 1) {
-          setHasUserWon(true);
-          
-        } else if (result === -1) {
-          setHasUserWon(false);
-
-        } 
+        setHasUserWon(result);
         setScore(score + result);
     }
 
@@ -259,7 +253,9 @@ const Game = ({score, setScore}) => {
                   </ComputersChoice>
               </ChoiceContainer>
 
-              { hasUserWon ? (<h1>You Win</h1>) : (<h1>You Lose</h1>) }
+              { hasUserWon === 1 ? (<h1>You Win</h1>) : (
+                hasUserWon === 0 ? (<h1>Tie</h1>) : (<h1>You Lose</h1>)
+              ) }
 
               <button id="play_again" onClick={ () => onPlayAgain() }>Play Again</button>
             </StageTwoContainer>
