@@ -4,8 +4,9 @@ import styled from "styled-components";
 import Game from "./components/Game";
 
 import logo_bonus from "./rock-paper-scissors-master/images/logo-bonus.svg";
+import { PulseScaleAnimation } from "./components/Icon";
 
-import {useState} from "react";
+import {useState, useEffect} from "react";
 
 const Container = styled.div`
   width: 100vw;
@@ -103,6 +104,7 @@ const Rules = styled.button`
   
   &:hover, &:active {
     cursor: pointer;
+    animation: ${PulseScaleAnimation} 1250ms infinite both;
   }
 
   @media (min-width: 768px) {
@@ -114,7 +116,16 @@ const Rules = styled.button`
 
 function App() {
 
-    const [score, setScore] = useState(0);
+  const [score, setScore] = useState(JSON.parse(window.localStorage.getItem('score')));
+
+    useEffect(() => {
+      const data = window.localStorage.getItem('score');
+      if (data !== null) setScore(JSON.parse(data));
+    }, []);
+
+    useEffect(() => {
+        window.localStorage.setItem('score', JSON.stringify(score));
+    }, [score]);
 
     return (
         <Container>

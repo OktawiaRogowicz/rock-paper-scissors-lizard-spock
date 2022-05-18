@@ -45,12 +45,20 @@ const Container = styled.button`
   box-shadow: inset 0 -0.3em rgba(0, 0, 0, 0.2), 0 5px 5px rgb(0, 0, 0, 0.2);
 
   border: none;
-  
+
   &:hover, &:active {
       cursor: pointer;
       animation: ${PulseScaleAnimation} 1250ms infinite;
 
       &::after, &::before {
+        content: '';
+        position: absolute;
+        height: 135%;
+        width: 135%;
+        background-color: white;
+        border-radius: 50%;
+        opacity: 0;
+        z-index: -1;
         animation: ${PulseOpacityAnimation} 1250ms infinite, ${PulseScaleAnimation} 1250ms infinite;
       }
       
