@@ -19,6 +19,16 @@ const Pentagon = styled.div`
   background-position: center;
   background-size: contain;
 
+  transform: scale(0.8);
+
+  @media (min-width: 375px) {
+    transform: scale(0.9);
+  }
+
+  @media (min-width: 768px) {
+    transform: scale(1.0);
+  }
+
   &>*:nth-child(1) {
     position: absolute;
     top: -2rem;
